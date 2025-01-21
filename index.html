@@ -5,118 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Hub</title>
     <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #f4f4f9;
+            --header-bg: #1f1f1f;
+            --header-text: #ffab00;
+            --card-bg: #1f1f1f;
+            --card-shadow: rgba(0, 0, 0, 0.5);
+            --button-bg: #333;
+            --button-color: #ffab00;
+        }
+
+      
+        
+
         body {
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #282c34; /* Dark gray background */
-            color: #fff; /* White text */
             display: flex;
             flex-direction: column;
-            min-height: 100vh; 
+            align-items: center;
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
-
         header {
-            background-color: #3498db; /* Blue header */
-            color: #fff;
-            padding: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 15px 20px;
             text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
-
-        nav {
-            background-color: #2c3e50; /* Darker gray navigation */
-            padding: 10px;
-            text-align: center;
-        }
-
-        nav a {
-            color: #fff; /* White links */
-            text-decoration: none;
-            margin: 0 15px;
-            padding: 5px 10px;
-            border-radius: 3px;
-            transition: background-color 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #34495e; /* Darker gray on hover */
-        }
-
+       
         main {
-            flex-grow: 1; /* Make main content take up remaining space */
-            display: flex;
-            flex-wrap: wrap; /* Allow subjects to wrap to the next row */
-            justify-content: center; /* Center subjects horizontally */
-            align-items: center; /* Center subjects vertically */
             padding: 20px;
+            width: 90%;
+            max-width: 600px;
         }
-
-        .subject-card {
-            background-color: #34495e; /* Darker gray card background */
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: 10px;
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px var(--card-shadow);
+            margin: 15px 0;
+            padding: 15px;
             text-align: center;
-            width: 200px;
-            cursor: pointer; /* Add cursor pointer for better user experience */
-            transition: transform 0.2s; /* Add hover effect */
         }
-
-        .subject-card:hover {
-            transform: scale(1.05); /* Slightly enlarge on hover */
+       
+        .card button:hover {
+            background-color: #ddd;
         }
-
-        .subject-card h3 {
-            color: #fff; /* White text */
-        }
-
         footer {
-            background-color: #2c3e50; /* Darker gray footer */
+            margin-top: auto;
+            background-color: var(--header-bg);
+            color: var(--header-text);
             padding: 10px;
             text-align: center;
+            width: 100%;
         }
-
         footer a {
-            color: #fff;
+            color: var(--button-color);
             text-decoration: none;
         }
     </style>
+   
 </head>
 <body>
-
-    <header>
-        <h1>Student Hub</h1>
-    </header>
-
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-    </nav>
-
+    <header> <h1>STUDENT HUB</h1> </header>
     <main>
-    </div>
-        <div class="subject-card" onclick="location.href='maths.html'">
-            <h3>Math</h3>
+        <div class="card">
+            <p>Explore English Resources</p>
+            <button onclick="location.href='english.html'">Go to English</button>
         </div>
-        <div class="subject-card" onclick="location.href='english.html'">
-            <h3>English</h3>
+        <div class="card">
+            <p>Explore Maths Resources</p>
+            <button onclick="location.href='maths.html'" >Go to Maths</button>
         </div>
-        <div class="subject-card" onclick="location.href='hindi.html'">
-            <h3>Hindi</h3>
+        <div class="card">
+            <p>Explore Hindi Resources</p>
+            <button onclick="location.href='hindi.html'" >Go to Hindi</button>
         </div>
-        <div class="subject-card" onclick="location.href='sst.html'">
-            <h3>Social Science</h3>
+        <div class="card">
+            <p>Explore Social Science Resources</p>
+            <button>Go to Social Science</button>
         </div>
-        <div class="subject-card" onclick="location.href='science.html'">
-            <h3>Science</h3>
+        <div class="card">
+            <p>Explore Science Resources</p>
+            <button>Go to Science</button>
         </div>
     </main>
-
     <footer>
-        <p>Contact: <a href="mailto:support@studenthub.com">support@studenthub.com</a></p>
+        
+        <p>Made with ❤️ for students. <a href="support.html">Contact Us</a></p>
     </footer>
-
 </body>
 </html>
