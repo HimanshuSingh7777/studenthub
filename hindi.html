@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Board</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f9;
+            --text-color: #333;
+            --header-bg: #6200ea;
+            --header-text: white;
+            --table-bg: white;
+            --table-border: #ddd;
+            --button-bg: white;
+            --button-color: #6200ea;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #f4f4f9;
+            --header-bg: #1f1f1f;
+            --header-text: #ffab00;
+            --table-bg: #1f1f1f;
+            --table-border: #333;
+            --button-bg: #333;
+            --button-color: #ffab00;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 15px 20px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .back-button {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            background-color: var(--button-bg);
+            color: var(--button-color);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-button:hover {
+            background-color: #ddd;
+        }
+        .theme-button {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            background-color: var(--button-bg);
+            color: var(--button-color);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        main {
+            padding: 20px;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--table-bg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        table th, table td {
+            border: 1px solid var(--table-border);
+            padding: 10px;
+            text-align: center;
+        }
+        table th {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+        }
+    </style>
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            const themeButton = document.getElementById('theme-button');
+            themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeButton = document.getElementById('theme-button');
+            themeButton.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-button">&larr; Back</a>
+        <button id="theme-button" class="theme-button" onclick="toggleTheme()">🌙</button>
+        <h1>English Board</h1>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Board</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CBSE</td>
+                </tr>
+                <tr>
+                    <td>BSEB</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>Made with ❤️ for students. <a href="#">Contact Us</a></p>
+    </footer>
+</body>
+</html>

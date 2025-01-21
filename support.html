@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f9;
+            --text-color: #333;
+            --header-bg: #6200ea;
+            --header-text: white;
+            --card-bg: white;
+            --card-shadow: rgba(0, 0, 0, 0.1);
+            --button-bg: white;
+            --button-color: #6200ea;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #f4f4f9;
+            --header-bg: #1f1f1f;
+            --header-text: #ffab00;
+            --card-bg: #1f1f1f;
+            --card-shadow: rgba(0, 0, 0, 0.4);
+            --button-bg: #333;
+            --button-color: #ffab00;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 15px 20px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .theme-button {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            background-color: var(--button-bg);
+            color: var(--button-color);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        main {
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .support-card {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            box-shadow: 0 2px 5px var(--card-shadow);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .support-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .support-card img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .support-card a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .back-button {
+            display: block;
+            background-color: var(--button-bg);
+            color: var(--button-color);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            text-align: center;
+            margin: 20px auto;
+            width: fit-content;
+        }
+
+        .back-button:hover {
+            background-color: #ddd;
+        }
+
+        footer {
+            margin-top: auto;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+        }
+
+        footer a {
+            color: #ffab00;
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            const themeButton = document.getElementById('theme-button');
+            themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeButton = document.getElementById('theme-button');
+            themeButton.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <button id="theme-button" class="theme-button" onclick="toggleTheme()">🌙</button>
+        <h1>Support</h1>
+    </header>
+    <main>
+        <div class="support-card">
+            <img src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png" alt="Instagram Logo">
+            <a href="https://www.instagram.com" target="_blank">Instagram</a>
+        </div>
+        <div class="support-card">
+            <img src="https://img.icons8.com/ios-filled/50/000000/facebook--v1.png" alt="Facebook Logo">
+            <a href="https://www.facebook.com" target="_blank">Facebook</a>
+        </div>
+        <div class="support-card">
+            <img src="https://img.icons8.com/ios-filled/50/000000/telegram-app.png" alt="Telegram Logo">
+            <a href="https://www.telegram.com" target="_blank">Telegram</a>
+        </div>
+        <div class="support-card">
+            <img src="https://img.icons8.com/ios-filled/50/000000/email-sign.png" alt="Email Logo">
+            <a href="mailto:support@example.com">Email</a>
+        </div>
+        <a href="english.html" class="back-button">&larr; Back</a>
+    </main>
+    
+</body>
+</html>

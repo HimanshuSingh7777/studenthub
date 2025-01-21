@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f9;
+            --text-color: #333;
+            --primary-color: #6c63ff;
+            --secondary-color: #d6c22e;
+            --button-bg: #6c63ff;
+            --button-text: white;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #f4f4f9;
+            --primary-color: #ffab00;
+            --secondary-color: #1f1f1f;
+            --button-bg: #ffab00;
+            --button-text: #121212;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            color: var(--primary-color);
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+        }
+
+        .button-container {
+            margin-top: 1.5em;
+        }
+
+        .back-home {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-home:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .illustration {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+    </style>
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            const themeButton = document.getElementById('theme-toggle');
+            themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeButton = document.getElementById('theme-toggle');
+            themeButton.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+        });
+    </script>
+</head>
+<body>
+    <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    <h1>We're Very Sorry!</h1>
+    <p>Our resources are not available at the moment. We promise to upload them soon. Stay tuned!</p>
+    <img class="illustration" src="https://placehold.co/600x400?text=Coming+Soon&font=arial" alt="Coming Soon Illustration">
+    
+    
+    <div class="button-container">
+        <a href="english.html" class="back-home">GO BACK</a>
+    </div>
+</body>
+</html>
