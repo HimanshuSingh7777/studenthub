@@ -5,99 +5,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Hub</title>
     <style>
-        :root {
-            --bg-color: #121212;
-            --text-color: #f4f4f9;
-            --header-bg: #1f1f1f;
-            --header-text: #ffab00;
-            --card-bg: #1f1f1f;
-            --card-shadow: rgba(0, 0, 0, 0.5);
-            --button-bg: #333;
-            --button-color: #ffab00;
-        }
-
-      
-        
-
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            perspective: 1000px;
         }
-        header {
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 15px 20px;
-            text-align: center;
-            width: 100%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 50px;
+            color: #00ffe7;
+            text-shadow: 0 4px 15px rgba(0, 255, 231, 0.9);
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            0% {
+                text-shadow: 0 4px 15px rgba(0, 255, 231, 0.5);
+            }
+            100% {
+                text-shadow: 0 4px 25px rgba(0, 255, 231, 1);
+            }
+        }
+        .button-container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .class-button {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 8px 15px rgba(255, 75, 43, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
         }
-       
-        main {
-            padding: 20px;
-            width: 90%;
-            max-width: 600px;
+        .class-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: skewX(-45deg);
+            transition: left 0.5s;
         }
-        .card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 2px 5px var(--card-shadow);
-            margin: 15px 0;
-            padding: 15px;
-            text-align: center;
+        .class-button:hover::after {
+            left: 100%;
         }
-       
-        .card button:hover {
-            background-color: #ddd;
+        .class-button:hover {
+            transform: translateY(-10px) rotateY(15deg) scale(1.1);
+            box-shadow: 0 15px 20px rgba(255, 75, 43, 0.6);
         }
-        footer {
-            margin-top: auto;
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 10px;
-            text-align: center;
+        .class-button:active {
+            transform: scale(0.95);
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .background-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
         }
-        footer a {
-            color: var(--button-color);
-            text-decoration: none;
+        .background-effect span {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 10s linear infinite;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100vw);
+                opacity: 0;
+            }
+        }
+        .neon-border {
+            border: 2px solid transparent;
+            border-image: linear-gradient(45deg, #ff416c, #ff4b2b, #00ffe7, #00d4ff);
+            border-image-slice: 1;
+            animation: border-flicker 3s infinite;
+        }
+        @keyframes border-flicker {
+            0%, 100% {
+                border-image: linear-gradient(45deg, #ff416c, #ff4b2b, #00ffe7, #00d4ff);
+            }
+            50% {
+                border-image: linear-gradient(45deg, #00ffe7, #00d4ff, #ff416c, #ff4b2b);
+            }
+        }
+        .interactive-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.9) 100%);
+        }
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #00ffe7;
+            border-radius: 50%;
+            animation: drift 10s infinite ease-in-out;
+        }
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(50vw, -50vh);
+            }
+            100% {
+                transform: translate(100vw, 50vh);
+            }
         }
     </style>
-   
 </head>
 <body>
-    <header> <h1>STUDENT HUB</h1> </header>
-    <main>
-        <div class="card">
-            <p>Explore English Resources</p>
-            <button onclick="location.href='english.html'">Go to English</button>
-        </div>
-        <div class="card">
-            <p>Explore Maths Resources</p>
-            <button onclick="location.href='maths.html'" >Go to Maths</button>
-        </div>
-        <div class="card">
-            <p>Explore Hindi Resources</p>
-            <button onclick="location.href='hindi.html'" >Go to Hindi</button>
-        </div>
-        <div class="card">
-            <p>Explore Social Science Resources</p>
-            <button>Go to Social Science</button>
-        </div>
-        <div class="card">
-            <p>Explore Science Resources</p>
-            <button>Go to Science</button>
-        </div>
-    </main>
-    <footer>
-        
-        <p>Made with ❤️ for students. <a href="support.html">Contact Us</a></p>
-    </footer>
+    <div class="interactive-bg">
+        <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="top: 50%; left: 30%; animation-delay: 2s;"></div>
+        <div class="particle" style="top: 70%; left: 50%; animation-delay: 4s;"></div>
+        <div class="particle" style="top: 10%; left: 70%; animation-delay: 6s;"></div>
+        <div class="particle" style="top: 40%; left: 90%; animation-delay: 8s;"></div>
+    </div>
+    <div class="background-effect">
+        <span style="left: 10%; animation-delay: 0s; animation-duration: 15s;"></span>
+        <span style="left: 30%; animation-delay: 2s; animation-duration: 12s;"></span>
+        <span style="left: 50%; animation-delay: 4s; animation-duration: 18s;"></span>
+        <span style="left: 70%; animation-delay: 6s; animation-duration: 20s;"></span>
+        <span style="left: 90%; animation-delay: 8s; animation-duration: 10s;"></span>
+    </div>
+    <h1 class="neon-border">Student Hub</h1>
+    <div class="button-container">
+        <button class="class-button" onclick="location.href='secondhomepage.html'">Class 10</button>
+        <button class="class-button" onclick="location.href='class11.html'">Class 11</button>
+        <button class="class-button" onclick="location.href='class12.html'">Class 12</button>
+    </div>
+    <div class="footer">&copy; 2025 Student Hub | Advanced Learning Platform</div>
 </body>
 </html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        body {
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            background: radial-gradient(circle, #1a1a2e, #16213e);
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        header {
+            width: 100%;
+            background: linear-gradient(135deg, #232526, #414345);
+            padding: 20px 0;
+            text-align: center;
+            color: #00ffe7;
+            font-size: 2rem;
+            text-shadow: 0 4px 15px rgba(0, 255, 231, 0.9);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            0% {
+                text-shadow: 0 4px 15px rgba(0, 255, 231, 0.5);
+            }
+            100% {
+                text-shadow: 0 4px 25px rgba(0, 255, 231, 1);
+            }
+        }
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .card {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            width: calc(100% - 40px);
+            max-width: 300px;
+            text-align: center;
+            color: #fff;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .card:hover {
+            transform: perspective(1000px) rotateY(15deg);
+            box-shadow: 0 15px 30px rgba(0, 255, 231, 0.6);
+        }
+        .card button {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            border: none;
+            padding: 15px 30px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(255, 75, 43, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 25px rgba(255, 75, 43, 0.6);
+        }
+        footer {
+            margin-top: auto;
+            width: 100%;
+            background: linear-gradient(135deg, #232526, #414345);
+            padding: 15px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+        footer a {
+            color: #00ffe7;
+            text-decoration: none;
+        }
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #00ffe7;
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(50vw, -50vh);
+            }
+            100% {
+                transform: translate(100vw, 50vh);
+            }
+        }
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.5rem;
+            }
+            main {
+                padding: 10px;
+                gap: 20px;
+            }
+            .card {
+                padding: 15px;
+                width: 100%;
+            }
+            .card button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        @media (max-width: 480px) {
+            header {
+                font-size: 1.2rem;
+            }
+            .card button {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>STUDENT HUB</header>
+    <main>
+        <div class="card">
+            <p>Explore English Resources</p>
+            <button onclick="location.href='english.html'">Go to English</button>
+        </div>
+        <div class="card">
+            <p>Explore Maths Resources</p>
+            <button onclick="location.href='maths.html'">Go to Maths</button>
+        </div>
+        <div class="card">
+            <p>Explore Hindi Resources</p>
+            <button onclick="location.href='hindi.html'">Go to Hindi</button>
+        </div>
+        <div class="card">
+            <p>Explore Social Science Resources</p>
+            <button onclick="location.href='social_science.html'">Go to Social Science</button>
+        </div>
+        <div class="card">
+            <p>Explore Science Resources</p>
+            <button onclick="location.href='science.html'">Go to Science</button>
+        </div>
+    </main>
+    <footer>
+        Made with ❤️ for students. <a href="support.html">Contact Us</a>
+    </footer>
+    <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="top: 50%; left: 30%; animation-delay: 2s;"></div>
+    <div class="particle" style="top: 70%; left: 50%; animation-delay: 4s;"></div>
+    <div class="particle" style="top: 10%; left: 70%; animation-delay: 6s;"></div>
+    <div class="particle" style="top: 40%; left: 90%; animation-delay: 8s;"></div>
+</body>
+</html>
+
+
+

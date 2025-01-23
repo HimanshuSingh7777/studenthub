@@ -3,58 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Data</title>
+    <title>English Resources</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
         :root {
-            --bg-color: #121212;
-            --text-color: #f4f4f9;
-            --header-bg: #1f1f1f;
-            --header-text: #ffab00;
-            --table-bg: #1f1f1f;
-            --table-border: #333;
-            --button-bg: #c4c1cf;
-            --button-color: #6200ea;
-            --button-hover-bg: rgba(224, 229, 234, 0.966);
+            --bg-color: #f5f5f5;
+            --text-color: #333;
+            --header-bg: #00796b;
+            --header-text: #fff;
+            --table-bg: #ffffff;
+            --table-border: #ddd;
+            --button-bg: #004d40;
+            --button-color: #ffffff;
+            --button-hover-bg: #00695c;
         }
 
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            font-family: 'Roboto', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
             background-color: var(--header-bg);
             color: var(--header-text);
-            padding: 15px 20px;
+            padding: 15px;
             text-align: center;
-            width: 100%;
             position: relative;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .back-button {
             position: absolute;
             top: 50%;
-            left: 10px;
+            left: 20px;
             transform: translateY(-50%);
             background-color: var(--button-bg);
             color: var(--button-color);
             border: none;
-            padding: 5px 10px;
+            padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
-            font-size: 14px;
-        }
-
-        .back-button img {
-            width: 16px;
-            height: 16px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
         }
 
         .back-button:hover {
@@ -62,56 +60,93 @@
         }
 
         main {
+            flex: 1;
             padding: 20px;
-            width: 90%;
-            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         table {
             width: 100%;
+            max-width: 800px;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin: 20px auto;
             background: var(--table-bg);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         table th, table td {
-            border: 1px solid var(--table-border);
-            padding: 10px;
+            padding: 15px;
             text-align: center;
+            border: 1px solid var(--table-border);
         }
 
         table th {
             background-color: var(--header-bg);
             color: var(--header-text);
+            font-weight: 700;
         }
 
         table td button {
             background-color: var(--button-bg);
             color: var(--button-color);
             border: none;
-            padding: 10px 15px;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 0.9rem;
             font-weight: bold;
-            text-transform: uppercase;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         table td button:hover {
             background-color: var(--button-hover-bg);
+            transform: translateY(-3px);
+        }
+
+        .pdf-viewer {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            border: 1px solid var(--table-border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        footer {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--button-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
     <script>
-        function openPDF() {
-            window.open('./english sample.pdf', '_blank');
+        function openPDFInViewer() {
+            const viewer = document.getElementById('pdf-viewer');
+            viewer.style.display = 'block';
+            viewer.src = './english sample.pdf#toolbar=0'; // Toolbar disabled
         }
     </script>
 </head>
 <body>
     <header>
         <a href="english.html" class="back-button">&larr; Back</a>
-        <h1>English Resources</h1>
+        English Resources
     </header>
     <main>
         <table>
@@ -123,12 +158,16 @@
             <tbody>
                 <tr>
                     <td>
-                        <button onclick="openPDF()">Sample Papers</button>
+                        <button onclick="openPDFInViewer()">Sample Papers</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <iframe id="pdf-viewer" class="pdf-viewer"></iframe>
     </main>
+    <footer>
+        Created for students with ❤️ | <a href="#" onclick="openModal()" style="color: var(--accent-color); text-decoration: none;">Contact Us</a>
+
+    </footer>
 </body>
 </html>
-

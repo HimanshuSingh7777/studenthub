@@ -5,169 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support</title>
     <style>
-        :root {
-            --bg-color: #f4f4f9;
-            --text-color: #333;
-            --header-bg: #6200ea;
-            --header-text: white;
-            --card-bg: white;
-            --card-shadow: rgba(0, 0, 0, 0.1);
-            --button-bg: white;
-            --button-color: #6200ea;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-        [data-theme="dark"] {
-            --bg-color: #121212;
-            --text-color: #f4f4f9;
-            --header-bg: #1f1f1f;
-            --header-text: #ffab00;
-            --card-bg: #1f1f1f;
-            --card-shadow: rgba(0, 0, 0, 0.4);
-            --button-bg: #333;
-            --button-color: #ffab00;
+        :root {
+            --bg-gradient: linear-gradient(120deg, #1a2a6c, #b21f1f, #fdbb2d);
+            --text-color: #fff;
+            --card-bg: rgba(0, 0, 0, 0.8);
+            --card-hover: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --button-bg: #ff4b2b;
+            --button-hover-bg: #ff6b4a;
+            --button-shadow: 0 10px 20px rgba(255, 75, 43, 0.7);
         }
 
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            justify-content: space-between;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         header {
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 15px 20px;
-            text-align: center;
             width: 100%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            position: relative;
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: var(--card-shadow);
         }
 
-        .theme-button {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            background-color: var(--button-bg);
-            color: var(--button-color);
-            border: none;
-            padding: 5px 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
+        header h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            margin: 0;
         }
 
         main {
-            padding: 20px;
             width: 90%;
-            max-width: 600px;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px 0;
         }
 
         .support-card {
-            display: flex;
-            align-items: center;
             background: var(--card-bg);
-            box-shadow: 0 2px 5px var(--card-shadow);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            transition: transform 0.2s ease-in-out;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            box-shadow: var(--card-shadow);
         }
 
         .support-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            background: var(--card-hover);
         }
 
         .support-card img {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
         }
 
         .support-card a {
-            text-decoration: none;
             color: var(--text-color);
-            font-size: 18px;
+            text-decoration: none;
+            font-size: 1.2rem;
             font-weight: bold;
         }
 
+        .support-card a:hover {
+            color: #ffdd57;
+        }
+
         .back-button {
-            display: block;
-            background-color: var(--button-bg);
-            color: var(--button-color);
+            background: var(--button-bg);
+            color: #fff;
+            padding: 15px 30px;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            text-decoration: none;
-            font-size: 16px;
-            text-align: center;
-            margin: 20px auto;
-            width: fit-content;
+            font-size: 1rem;
+            text-transform: uppercase;
+            margin: 30px auto;
+            box-shadow: var(--button-shadow);
+            transition: background 0.3s, transform 0.3s;
         }
 
         .back-button:hover {
-            background-color: #ddd;
+            background: var(--button-hover-bg);
+            transform: translateY(-5px);
         }
 
         footer {
-            margin-top: auto;
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 10px;
+            padding: 20px;
             text-align: center;
+            background: rgba(0, 0, 0, 0.7);
             width: 100%;
+            color: var(--text-color);
+            font-size: 1rem;
+            letter-spacing: 1px;
         }
 
         footer a {
-            color: #ffab00;
+            color: #ffdd57;
             text-decoration: none;
-        }
-    </style>
-    <script>
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            const themeButton = document.getElementById('theme-button');
-            themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            font-weight: bold;
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const themeButton = document.getElementById('theme-button');
-            themeButton.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
-        });
-    </script>
+        footer a:hover {
+            color: #ff4b2b;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <button id="theme-button" class="theme-button" onclick="toggleTheme()">🌙</button>
         <h1>Support</h1>
     </header>
     <main>
         <div class="support-card">
-            <img src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png" alt="Instagram Logo">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram Logo">
             <a href="https://www.instagram.com" target="_blank">Instagram</a>
         </div>
         <div class="support-card">
-            <img src="https://img.icons8.com/ios-filled/50/000000/facebook--v1.png" alt="Facebook Logo">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook--v1.png" alt="Facebook Logo">
             <a href="https://www.facebook.com" target="_blank">Facebook</a>
         </div>
         <div class="support-card">
-            <img src="https://img.icons8.com/ios-filled/50/000000/telegram-app.png" alt="Telegram Logo">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/telegram-app.png" alt="Telegram Logo">
             <a href="https://www.telegram.com" target="_blank">Telegram</a>
         </div>
         <div class="support-card">
-            <img src="https://img.icons8.com/ios-filled/50/000000/email-sign.png" alt="Email Logo">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/email-sign.png" alt="Email Logo">
             <a href="mailto:support@example.com">Email</a>
         </div>
-        <a href="english.html" class="back-button">&larr; Back</a>
+        <button class="back-button" onclick="window.location.href='index.html'">&larr; Back</button>
     </main>
-    
+    <footer>
+        &copy; 2025 Student Hub | Empowering Education with Style
+        <br>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    </footer>
 </body>
 </html>
