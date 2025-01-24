@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Resources</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -12,11 +13,10 @@
             --text-color: #333;
             --header-bg: #00796b;
             --header-text: #fff;
-            --table-bg: #ffffff;
-            --table-border: #ddd;
             --button-bg: #004d40;
-            --button-color: #ffffff;
             --button-hover-bg: #00695c;
+            --button-color: #ffffff;
+            --modal-bg: rgba(0, 0, 0, 0.9);
         }
 
         body {
@@ -63,58 +63,76 @@
             flex: 1;
             padding: 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
         }
 
-        table {
-            width: 100%;
-            max-width: 800px;
-            border-collapse: collapse;
-            margin: 20px auto;
-            background: var(--table-bg);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        table th, table td {
-            padding: 15px;
-            text-align: center;
-            border: 1px solid var(--table-border);
-        }
-
-        table th {
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            font-weight: 700;
-        }
-
-        table td button {
+        button {
             background-color: var(--button-bg);
             color: var(--button-color);
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease;
         }
 
-        table td button:hover {
+        button:hover {
             background-color: var(--button-hover-bg);
-            transform: translateY(-3px);
         }
 
-        .pdf-viewer {
+        .modal {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 800px;
-            height: 600px;
-            border: 1px solid var(--table-border);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
+            height: 100%;
+            background-color: var(--modal-bg);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: space-around;
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1001;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .modal-buttons button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .modal-buttons button i {
+            font-size: 30px;
+            color: var(--button-color);
+        }
+
+        .modal-buttons button:hover i {
+            transform: scale(1.2);
+            color: #ddd;
         }
 
         footer {
@@ -136,10 +154,97 @@
         }
     </style>
     <script>
-        function openPDFInViewer() {
-            const viewer = document.getElementById('pdf-viewer');
-            viewer.style.display = 'block';
-            viewer.src = './english sample.pdf#toolbar=0'; // Toolbar disabled
+        const images = [
+            'samplepaperimage/sample1.jpg',
+            'samplepaperimage/sample2.jpg',
+            'samplepaperimage/sample3.jpg'
+        ];
+
+        let currentImageIndex = 0;
+        let scale = 1;
+        let initialDistance = 0;
+
+        function openImageModal(index) {
+            currentImageIndex = index;
+            const modal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            modalImage.src = images[currentImageIndex];
+            modal.style.display = 'flex';
+        }
+
+        function closeImageModal() {
+            document.getElementById('image-modal').style.display = 'none';
+            resetZoom();
+        }
+
+        function nextImage() {
+            if (currentImageIndex < images.length - 1) {
+                currentImageIndex++;
+                updateImage();
+            }
+        }
+
+        function prevImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                updateImage();
+            }
+        }
+
+        function zoomIn() {
+            scale += 0.1;
+            updateZoom();
+        }
+
+        function zoomOut() {
+            if (scale > 0.1) {
+                scale -= 0.1;
+                updateZoom();
+            }
+        }
+
+        function resetZoom() {
+            scale = 1;
+            updateZoom();
+        }
+
+        function updateImage() {
+            const modalImage = document.getElementById('modal-image');
+            modalImage.src = images[currentImageIndex];
+            resetZoom();
+        }
+
+        function updateZoom() {
+            const modalImage = document.getElementById('modal-image');
+            modalImage.style.transform = `scale(${scale})`;
+        }
+
+        function handleTouchStart(e) {
+            if (e.touches.length === 2) {
+                initialDistance = getDistance(e.touches[0], e.touches[1]);
+            }
+        }
+
+        function handleTouchMove(e) {
+            if (e.touches.length === 2) {
+                const newDistance = getDistance(e.touches[0], e.touches[1]);
+                if (initialDistance > 0) {
+                    const delta = newDistance / initialDistance;
+                    scale *= delta;
+                    initialDistance = newDistance;
+                    updateZoom();
+                }
+            }
+        }
+
+        function handleTouchEnd() {
+            initialDistance = 0;
+        }
+
+        function getDistance(touch1, touch2) {
+            const dx = touch1.clientX - touch2.clientX;
+            const dy = touch1.clientY - touch2.clientY;
+            return Math.sqrt(dx * dx + dy * dy);
         }
     </script>
 </head>
@@ -149,25 +254,23 @@
         English Resources
     </header>
     <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>Content</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <button onclick="openPDFInViewer()">Sample Papers</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <iframe id="pdf-viewer" class="pdf-viewer"></iframe>
+        <button onclick="openImageModal(0)">Sample Papers</button>
     </main>
-    <footer>
-        Created for students with ❤️ | <a href="#" onclick="openModal()" style="color: var(--accent-color); text-decoration: none;">Contact Us</a>
 
+    <div id="image-modal" class="modal" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd()">
+        <img id="modal-image" src="" alt="Sample Paper">
+        <div class="modal-buttons">
+            <button onclick="prevImage()"><i class="fas fa-arrow-left"></i></button>
+            <button onclick="zoomOut()"><i class="fas fa-search-minus"></i></button>
+            <button onclick="resetZoom()"><i class="fas fa-compress"></i></button>
+            <button onclick="zoomIn()"><i class="fas fa-search-plus"></i></button>
+            <button onclick="nextImage()"><i class="fas fa-arrow-right"></i></button>
+            <button onclick="closeImageModal()"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 English Resources</p>
     </footer>
 </body>
 </html>

@@ -5,163 +5,234 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Board</title>
     <style>
-        :root {
-            --bg-color: #f4f4f9;
-            --text-color: #333;
-            --header-bg: #d6c22e;
-            --header-text: white;
-            --table-bg: white;
-            --table-border: #ddd;
-            --button-bg: white;
-            --button-color: #6200ea;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-        [data-theme="dark"] {
-            --bg-color: #121212;
-            --text-color: #f4f4f9;
-            --header-bg: #1f1f1f;
-            --header-text: #ffab00;
-            --table-bg: #1f1f1f;
-            --table-border: #333;
-            --button-bg: #333;
-            --button-color: #ffab00;
+        :root {
+            --text-color: #ffffff;
+            --primary-color: #1c1c1e;
+            --secondary-color: #282a36;
+            --accent-color: #ff79c6;
+            --card-bg: rgba(40, 42, 54, 0.9);
+            --card-hover-bg: rgba(68, 71, 90, 0.9);
+            --card-shadow: rgba(0, 0, 0, 0.5);
+            --footer-bg: #1c1c1e;
+            --footer-text: #ffffff;
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            min-height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         header {
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 15px 20px;
+            color: #fff;
             text-align: center;
-            width: 100%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 20px 0;
             position: relative;
+            font-size: 2rem;
+            font-weight: 700;
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 2;
         }
 
         .back-button {
             position: absolute;
             top: 50%;
-            left: 10px;
+            left: 20px;
             transform: translateY(-50%);
-            background-color: var(--button-bg);
-            color: var(--button-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
             border: none;
-            padding: 5px 10px;
+            padding: 8px 15px;
             border-radius: 5px;
+            font-size: 14px;
             cursor: pointer;
             text-decoration: none;
-            font-size: 14px;
+            z-index: 3;
         }
 
-        .theme-button {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            background-color: var(--button-bg);
-            color: var(--button-color);
-            border: none;
-            padding: 5px 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
+        .back-button:hover {
+            background-color: var(--text-color);
+            color: #000;
         }
 
         main {
-            padding: 20px;
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            z-index: 2;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: var(--table-bg);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        table th, table td {
-            border: 1px solid var(--table-border);
-            padding: 10px;
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px var(--card-shadow);
+            padding: 20px 30px;
             text-align: center;
+            margin: 20px 0;
+            width: 80%;
+            max-width: 600px;
             cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
         }
 
-        table th {
-            background-color: var(--header-bg);
-            color: var(--header-text);
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px var(--card-shadow);
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            font-weight: 700;
         }
 
         footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
             text-align: center;
-            margin: 20px 0;
+            padding: 15px 20px;
+            margin-top: auto;
+            font-size: 0.9rem;
+            z-index: 2;
         }
 
-        footer p a {
-            color: var(--button-color);
+        footer a {
+            color: var(--accent-color);
             text-decoration: none;
+            cursor: pointer;
         }
 
-        footer p a:hover {
+        footer a:hover {
             text-decoration: underline;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        .modal-content h2 {
+            margin: 0 0 15px;
+        }
+
+        .modal-content p {
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-color);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
     <script>
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            const themeButton = document.getElementById('theme-button');
-            themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        function navigateTo(page) {
+            window.location.href = page;
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const themeButton = document.getElementById('theme-button');
-            themeButton.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
-        });
+        function openModal() {
+            document.getElementById('contactModal').style.display = 'flex';
+        }
 
-        function openPDF() {
-            window.open('./english sample.pdf', '_blank');
+        function closeModal() {
+            document.getElementById('contactModal').style.display = 'none';
         }
     </script>
 </head>
 <body>
     <header>
         <a href="index.html" class="back-button">&larr; Back</a>
-        <button id="theme-button" class="theme-button" onclick="toggleTheme()">🌙</button>
-        <h1>English Board</h1>
+        English Board
     </header>
     <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>Board</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>                      
-                    <td onclick="window.location.href='engdata.html'">CBSE</td>
-                </tr>
-                <tr>
-                    <td onclick="window.location.href='bseb.html'">BSEB</td>
-
-                </tr>
-            </tbody>
-        </table>
+        <div class="card" onclick="navigateTo('engdata.html')">
+            <h2>CBSE Board</h2>
+        </div>
+        <div class="card" onclick="navigateTo('bseb.html')">
+            <h2>BSEB Board</h2>
+        </div>
     </main>
     <footer>
-        <p>Made with ❤️ for students. <a href="support.html">Contact Us</a></p>
+        <p>Made with ❤️ for students. <a onclick="openModal()">Contact Us</a></p>
     </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2>Contact Us</h2>
+            <p>If you have any questions, feel free to reach out!</p>
+            <form>
+                <input type="text" placeholder="Your Name" required style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                <input type="email" placeholder="Your Email" required style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                <textarea placeholder="Your Message" required style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px;"></textarea>
+                <button type="submit" style="padding: 10px 20px; background: var(--accent-color); color: #fff; border: none; border-radius: 5px;">Send</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
-
