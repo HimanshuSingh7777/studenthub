@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 12 Resources Hub</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: #003f7f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            padding: 10px 15px;
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background: #00264d;
+        }
+
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url('https://source.unsplash.com/1600x900/?education,books') no-repeat center center/cover;
+            color: #fff;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .hero button {
+            padding: 15px 30px;
+            font-size: 1rem;
+            color: #fff;
+            background: #0056b3;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .hero button:hover {
+            background: #003d80;
+        }
+
+        section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        section h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            font-size: 1rem;
+            margin: 0 auto 30px;
+            max-width: 800px;
+            color: #555;
+        }
+
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .resource {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .resource:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .resource h4 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+
+        .resource p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .resource a {
+            text-decoration: none;
+            color: #0056b3;
+            font-weight: bold;
+        }
+
+        .resource a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #003f7f;
+            text-align: center;
+            padding: 20px 10px;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #ffdd57;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .cta {
+            background: #f1f5f9;
+            padding: 50px 20px;
+            margin: 40px 0;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta button {
+            padding: 15px 30px;
+            font-size: 1rem;
+            color: #fff;
+            background: #0056b3;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .cta button:hover {
+            background: #003d80;
+        }
+
+        .graphics {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .graphic-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .graphic-item:hover {
+            transform: scale(1.1);
+        }
+
+        .graphic-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Class 12 Resources</h1>
+        <nav>
+            <ul>
+                <li><a href="#books">Books</a></li>
+                <li><a href="#materials">Materials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2 style="font-family: 'Arial', sans-serif; color: #e0e0e0; background-color: rgba(0,0,0,0.6); padding: 10px; border-radius: 8px;">Empowering Class 12 Students</h2>
+        <p>Your gateway to top-notch books, study materials, and exam resources.</p>
+        <button onclick="alert('Discover the best resources for your success!')">Start Learning</button>
+    </section>
+
+    <section id="books">
+        <h3>Books Library</h3>
+        <p>Explore a vast collection of books designed to help you excel in every subject.</p>
+        <div class="resources">
+            <div class="resource">
+                <h4>Physics Book</h4>
+                <p>Comprehensive coverage of all topics with solved examples and practice questions.</p>
+                <a href="#">Download</a>
+            </div>
+            <div class="resource">
+                <h4>Chemistry Book</h4>
+                <p>Detailed explanations and illustrations to simplify complex concepts.</p>
+                <a href="#">Download</a>
+            </div>
+            <div class="resource">
+                <h4>Mathematics Book</h4>
+                <p>Advanced problem sets and step-by-step solutions for better understanding.</p>
+                <a href="#">Download</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="materials">
+        <h3>Study Materials</h3>
+        <p>Additional resources like notes, practice papers, and guides to boost your learning experience.</p>
+        <div class="resources">
+            <div class="resource">
+                <h4>Sample Papers</h4>
+                <p>Practice with real exam-like papers and improve your confidence.</p>
+                <a href="flipbook.html" target="_blank">View</a>
+            </div>
+            <div class="resource">
+                <h4>Quick Revision Notes</h4>
+                <p>Concise notes for last-minute revision before exams.</p>
+                <a href="#">Download</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="cta">
+        <h3>Ready to Ace Your Exams?</h3>
+        <p>Get access to premium resources and elevate your preparation today.</p>
+        <button onclick="alert('Feature Coming Soon!')">Join Now</button>
+    </div>
+
+    <section id="graphics">
+        <h3>Engaging Visuals</h3>
+        <p>Take a look at some of our graphics that make learning more interactive and fun!</p>
+        <div class="graphics">
+            <div class="graphic-item">
+                <img src="https://source.unsplash.com/200x200/?education,learning" alt="Education Graphic">
+            </div>
+            <div class="graphic-item">
+                <img src="https://source.unsplash.com/200x200/?books,study" alt="Books Graphic">
+            </div>
+            <div class="graphic-item">
+                <img src="https://source.unsplash.com/200x200/?science,technology" alt="Science Graphic">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h3>Contact Us</h3>
+        <p>Email: <a href="mailto:class12resources@example.com">class12resources@example.com</a></p>
+        <p>Phone: +1 234 567 8900</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Class 12 Resources | All Rights Reserved | <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>

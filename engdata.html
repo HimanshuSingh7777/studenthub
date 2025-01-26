@@ -4,273 +4,273 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Resources</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-        :root {
-            --bg-color: #f5f5f5;
-            --text-color: #333;
-            --header-bg: #00796b;
-            --header-text: #fff;
-            --button-bg: #004d40;
-            --button-hover-bg: #00695c;
-            --button-color: #ffffff;
-            --modal-bg: rgba(0, 0, 0, 0.9);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #e0f7fa, #f1f8e9);
+            color: #333;
+            line-height: 1.6;
         }
 
         header {
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 15px;
-            text-align: center;
-            position: relative;
-            font-size: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .back-button {
-            position: absolute;
-            top: 50%;
-            left: 20px;
-            transform: translateY(-50%);
-            background-color: var(--button-bg);
-            color: var(--button-color);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .back-button:hover {
-            background-color: var(--button-hover-bg);
-        }
-
-        main {
-            flex: 1;
-            padding: 20px;
+            background: #283593;
+            color: white;
+            padding: 1rem 1.5rem;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+        }
+
+        nav {
+            position: relative;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            transition: max-height 0.3s ease;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffb74d;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            background: url('https://source.unsplash.com/featured/?study,students') no-repeat center/cover;
+            color: white;
+            text-align: center;
+            padding: 4rem 1.5rem;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
-        button {
-            background-color: var(--button-bg);
-            color: var(--button-color);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: var(--button-hover-bg);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
+        .hero:after {
+            content: "";
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--modal-bg);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            background: rgba(40, 53, 147, 0.7);
+            z-index: -1;
         }
 
-        .modal img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transform-origin: center;
-            transition: transform 0.3s ease;
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
-        .modal-buttons {
-            display: flex;
-            justify-content: space-around;
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1001;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
-            border-radius: 15px;
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
-        .modal-buttons button {
-            background: none;
+        .hero .btn {
+            padding: 0.8rem 1.5rem;
+            background: #ffb74d;
+            color: white;
+            font-weight: bold;
             border: none;
+            border-radius: 30px;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            text-decoration: none;
+            transition: background 0.3s;
         }
 
-        .modal-buttons button i {
-            font-size: 30px;
-            color: var(--button-color);
+        .hero .btn:hover {
+            background: #ff9800;
         }
 
-        .modal-buttons button:hover i {
-            transform: scale(1.2);
-            color: #ddd;
+        .content {
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #283593;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            color: #283593;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card a {
+            text-decoration: none;
+            color: white;
+            background: #283593;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .card a:hover {
+            background: #3949ab;
         }
 
         footer {
-            background-color: var(--header-bg);
-            color: var(--header-text);
+            background: #283593;
+            color: white;
             text-align: center;
-            padding: 10px;
-            font-size: 0.9rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
         }
 
-        footer a {
-            color: var(--button-color);
-            text-decoration: none;
-            font-weight: bold;
-        }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
 
-        footer a:hover {
-            text-decoration: underline;
+            nav ul {
+                display: none;
+                flex-direction: column;
+                background: #3949ab;
+                position: absolute;
+                top: 70px;
+                right: 10px;
+                border-radius: 10px;
+                padding: 1rem;
+                width: 80%;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                z-index: 10;
+                max-height: 0;
+                overflow: hidden;
+            }
+
+            nav ul.active {
+                display: flex;
+                max-height: 300px;
+            }
+
+            nav ul li {
+                margin-bottom: 1rem;
+            }
+
+            nav ul li:last-child {
+                margin-bottom: 0;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
-    <script>
-        const images = [
-            'samplepaperimage/sample1.jpg',
-            'samplepaperimage/sample2.jpg',
-            'samplepaperimage/sample3.jpg'
-        ];
-
-        let currentImageIndex = 0;
-        let scale = 1;
-        let initialDistance = 0;
-
-        function openImageModal(index) {
-            currentImageIndex = index;
-            const modal = document.getElementById('image-modal');
-            const modalImage = document.getElementById('modal-image');
-            modalImage.src = images[currentImageIndex];
-            modal.style.display = 'flex';
-        }
-
-        function closeImageModal() {
-            document.getElementById('image-modal').style.display = 'none';
-            resetZoom();
-        }
-
-        function nextImage() {
-            if (currentImageIndex < images.length - 1) {
-                currentImageIndex++;
-                updateImage();
-            }
-        }
-
-        function prevImage() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                updateImage();
-            }
-        }
-
-        function zoomIn() {
-            scale += 0.1;
-            updateZoom();
-        }
-
-        function zoomOut() {
-            if (scale > 0.1) {
-                scale -= 0.1;
-                updateZoom();
-            }
-        }
-
-        function resetZoom() {
-            scale = 1;
-            updateZoom();
-        }
-
-        function updateImage() {
-            const modalImage = document.getElementById('modal-image');
-            modalImage.src = images[currentImageIndex];
-            resetZoom();
-        }
-
-        function updateZoom() {
-            const modalImage = document.getElementById('modal-image');
-            modalImage.style.transform = `scale(${scale})`;
-        }
-
-        function handleTouchStart(e) {
-            if (e.touches.length === 2) {
-                initialDistance = getDistance(e.touches[0], e.touches[1]);
-            }
-        }
-
-        function handleTouchMove(e) {
-            if (e.touches.length === 2) {
-                const newDistance = getDistance(e.touches[0], e.touches[1]);
-                if (initialDistance > 0) {
-                    const delta = newDistance / initialDistance;
-                    scale *= delta;
-                    initialDistance = newDistance;
-                    updateZoom();
-                }
-            }
-        }
-
-        function handleTouchEnd() {
-            initialDistance = 0;
-        }
-
-        function getDistance(touch1, touch2) {
-            const dx = touch1.clientX - touch2.clientX;
-            const dy = touch1.clientY - touch2.clientY;
-            return Math.sqrt(dx * dx + dy * dy);
-        }
-    </script>
 </head>
 <body>
     <header>
-        <a href="english.html" class="back-button">&larr; Back</a>
-        English Resources
+        <h1>English Hub</h1>
+        <nav>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    <main>
-        <button onclick="openImageModal(0)">Sample Papers</button>
-    </main>
 
-    <div id="image-modal" class="modal" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd()">
-        <img id="modal-image" src="" alt="Sample Paper">
-        <div class="modal-buttons">
-            <button onclick="prevImage()"><i class="fas fa-arrow-left"></i></button>
-            <button onclick="zoomOut()"><i class="fas fa-search-minus"></i></button>
-            <button onclick="resetZoom()"><i class="fas fa-compress"></i></button>
-            <button onclick="zoomIn()"><i class="fas fa-search-plus"></i></button>
-            <button onclick="nextImage()"><i class="fas fa-arrow-right"></i></button>
-            <button onclick="closeImageModal()"><i class="fas fa-times"></i></button>
+    <section class="hero">
+        <h2>Empowering Students to Excel</h2>
+        <p>Access top-notch English resources to achieve your goals with ease and confidence.</p>
+        <a href="#resources" class="btn">Explore Resources</a>
+    </section>
+
+    <section class="content" id="resources">
+        <h2 class="section-title">Our Resources</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>Sample Papers</h3>
+                <p>Prepare effectively with expertly designed sample papers.</p>
+                <a href="flipbook.html">View</a>
+            </div>
+            <div class="card">
+                <h3>Books & Guides</h3>
+                <p>Comprehensive materials to boost your learning journey.</p>
+                <a href="#">Learn More</a>
+            </div>
+            <div class="card">
+                <h3>Practice Tests</h3>
+                <p>Enhance your skills with a variety of practice tests.</p>
+                <a href="#">Start Practicing</a>
+            </div>
         </div>
-    </div>
+    </section>
 
     <footer>
-        <p>© 2025 English Resources</p>
+        <p>&copy; 2025 English Hub. Designed for Future Achievers.</p>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.querySelector('nav ul');
+            navMenu.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
