@@ -2,268 +2,398 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive PDF Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NeoFlip - Futuristic PDF Viewer</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-        #viewer-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            height: 90%;
-            overflow-y: auto;
-            background-color: #fff;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-        }
-        #pdf-viewer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
-        }
-        .page {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        canvas {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-        }
-        .controls {
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding: 10px;
-        }
-        .btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-        #fullscreen-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-        #fullscreen-container canvas {
-            width: auto;
-            max-width: 100%;
-            height: 100%;
-        }
-        #close-fullscreen {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        #close-fullscreen:hover {
-            background-color: rgba(0, 0, 0, 0.9);
+        :root {
+            --primary: #00f3ff;
+            --secondary: #7a63ff;
+            --background: #0a0e17;
+            --surface: rgba(255, 255, 255, 0.05);
         }
 
-        /* Futuristic Back Button Styles */
-        .back-button {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 40px;
-            height: 40px;
-            background-color: #007bff;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--background);
+            font-family: 'Segoe UI', system-ui, sans-serif;
             color: white;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .holographic-effect {
+            position: fixed;
+            width: 150vw;
+            height: 150vh;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(122, 99, 255, 0.15) 0%, 
+                rgba(0, 243, 255, 0.05) 50%, 
+                transparent 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .viewer-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            padding: 1rem;
+            display: grid;
+            place-items: center;
+        }
+
+        .flipbook-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        #pdf-viewer {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        #pdf-viewer::-webkit-scrollbar {
+            display: none;
+        }
+
+        .page-container {
+            position: relative;
+            margin: 2rem auto;
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .page-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 243, 255, 0.2);
+        }
+
+        .page-canvas {
+            width: 100% !important;
+            height: auto !important;
+            display: block;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-size: 20px;
-            z-index: 1000;
+            display: grid;
+            place-items: center;
+            transition: all 0.3s ease;
         }
-        .back-button:hover {
-            background-color: #0056b3;
+
+        .control-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
         }
-        .back-button:active {
+
+        .control-btn:active {
             transform: scale(0.95);
         }
 
-        /* Mobile-specific adjustments */
+        .control-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .fullscreen-canvas {
+            max-width: 90%;
+            max-height: 90%;
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.2);
+            border-radius: 8px;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            display: grid;
+            place-items: center;
+            z-index: 1001;
+        }
+
+        .cyber-loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--primary);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: relative;
+        }
+
+        .cyber-loader::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border: 3px solid transparent;
+            border-top-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
-            #viewer-container {
-                height: 100%;
+            .flipbook-container {
+                height: 100vh;
                 border-radius: 0;
             }
-            .btn {
-                padding: 10px 15px;
-                font-size: 12px;
+
+            .controls {
+                bottom: 1rem;
+                padding: 0.5rem;
             }
-            .back-button {
-                width: 35px;
-                height: 35px;
-                font-size: 18px;
-                top: 10px;
-                left: 10px;
+
+            .control-btn {
+                width: 45px;
+                height: 45px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Futuristic Back Button -->
-    <button class="back-button" onclick="goBack()">←</button>
-
-    <div id="viewer-container">
-        <div id="pdf-viewer"></div>
+    <div class="holographic-effect"></div>
+    
+    <div class="loading-overlay">
+        <div class="cyber-loader"></div>
     </div>
+
+    <div class="viewer-wrapper">
+        <div class="flipbook-container">
+            <div id="pdf-viewer"></div>
+        </div>
+    </div>
+
     <div class="controls">
-        <button class="btn" id="prev">Previous</button>
-        <button class="btn" id="next">Next</button>
+        <button class="control-btn" id="prev">
+            <svg viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+        </button>
+        <button class="control-btn" id="next">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+        </button>
     </div>
 
-    <div id="fullscreen-container">
-        <canvas id="fullscreen-canvas"></canvas>
-        <button id="close-fullscreen">Close</button>
+    <div class="fullscreen-overlay">
+        <canvas class="fullscreen-canvas"></canvas>
     </div>
 
     <script>
-        const url = './sample.pdf'; // Path to your PDF file
-
-        const pdfjsLib = window['pdfjs-dist/build/pdf'];
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
-
+        const pdfUrl = './sample.pdf';
         const pdfViewer = document.getElementById('pdf-viewer');
-        const fullscreenContainer = document.getElementById('fullscreen-container');
-        const fullscreenCanvas = document.getElementById('fullscreen-canvas');
-        const closeFullscreenButton = document.getElementById('close-fullscreen');
-        const prevButton = document.getElementById('prev');
-        const nextButton = document.getElementById('next');
-
+        const loadingOverlay = document.querySelector('.loading-overlay');
+        const fullscreenOverlay = document.querySelector('.fullscreen-overlay');
+        const fullscreenCanvas = fullscreenOverlay.querySelector('canvas');
         let pdfDoc = null;
         let currentPage = 1;
         let totalPages = 0;
+        let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-        // Function to load the PDF
-        async function loadPDF(url) {
+        // PDF.js Configuration
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+
+        // Load PDF Document
+        async function initializeViewer() {
             try {
-                pdfDoc = await pdfjsLib.getDocument(url).promise;
+                pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
                 totalPages = pdfDoc.numPages;
-
-                // Render all pages
-                for (let i = 1; i <= totalPages; i++) {
-                    await renderPage(i);
-                }
+                
+                // Render initial pages
+                await renderPages();
+                loadingOverlay.style.display = 'none';
+                
+                // Setup event listeners
+                setupEventHandlers();
+                setupGestures();
             } catch (error) {
-                console.error("Error loading PDF:", error);
+                console.error('PDF Loading Error:', error);
+                loadingOverlay.innerHTML = '<p>Error loading document</p>';
             }
         }
 
-        // Function to render a page
-        async function renderPage(pageNumber) {
-            const page = await pdfDoc.getPage(pageNumber);
-            const viewport = page.getViewport({ scale: 1.2 }); // Adjust scale for better responsiveness
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
+        // Adaptive Page Rendering
+        async function renderPages() {
+            const deviceScale = window.devicePixelRatio || 1;
+            const viewportWidth = pdfViewer.clientWidth;
 
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
+            for (let i = 1; i <= totalPages; i++) {
+                const page = await pdfDoc.getPage(i);
+                const viewport = page.getViewport({ scale: 1 });
+                const scale = (viewportWidth * 0.9) / viewport.width;
+                const scaledViewport = page.getViewport({ scale: scale * deviceScale });
 
-            await page.render({ canvasContext: context, viewport }).promise;
+                // Create canvas
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = scaledViewport.width;
+                canvas.height = scaledViewport.height;
+                canvas.style.width = `${scaledViewport.width / deviceScale}px`;
+                canvas.style.height = `${scaledViewport.height / deviceScale}px`;
 
-            const pageDiv = document.createElement('div');
-            pageDiv.classList.add('page');
-            pageDiv.dataset.pageNumber = pageNumber;
-            pageDiv.appendChild(canvas);
-            pageDiv.addEventListener('click', () => openFullscreen(pageNumber)); // Add click event
-            pdfViewer.appendChild(pageDiv);
+                // Render page
+                await page.render({
+                    canvasContext: context,
+                    viewport: scaledViewport
+                }).promise;
+
+                // Create page container
+                const pageContainer = document.createElement('div');
+                pageContainer.className = 'page-container';
+                pageContainer.appendChild(canvas);
+                pageContainer.addEventListener('click', () => toggleFullscreen(page.pageNumber));
+                pdfViewer.appendChild(pageContainer);
+            }
         }
 
-        // Open a page in fullscreen
-        async function openFullscreen(pageNumber) {
-            const page = await pdfDoc.getPage(pageNumber);
-            const viewport = page.getViewport({ scale: 2 }); // Higher scale for fullscreen
-            const context = fullscreenCanvas.getContext('2d');
+        // Fullscreen Handling
+        async function toggleFullscreen(pageNumber) {
+            if (fullscreenOverlay.style.display === 'flex') {
+                fullscreenOverlay.style.display = 'none';
+                return;
+            }
 
+            const page = await pdfDoc.getPage(pageNumber);
+            const viewport = page.getViewport({ scale: 2 });
+            const context = fullscreenCanvas.getContext('2d');
+            
             fullscreenCanvas.width = viewport.width;
             fullscreenCanvas.height = viewport.height;
+            
+            await page.render({
+                canvasContext: context,
+                viewport: viewport
+            }).promise;
 
-            await page.render({ canvasContext: context, viewport }).promise;
-
-            fullscreenContainer.style.display = 'flex'; // Show fullscreen container
+            fullscreenOverlay.style.display = 'flex';
         }
 
-        // Close fullscreen view
-        closeFullscreenButton.addEventListener('click', () => {
-            fullscreenContainer.style.display = 'none';
-        });
+        // Event Handlers
+        function setupEventHandlers() {
+            document.getElementById('prev').addEventListener('click', () => navigate(-1));
+            document.getElementById('next').addEventListener('click', () => navigate(1));
+            window.addEventListener('resize', debounce(handleResize, 200));
+            fullscreenOverlay.addEventListener('click', () => fullscreenOverlay.style.display = 'none');
+            document.addEventListener('keydown', handleKeyPress);
+        }
 
-        // Navigate to the previous page
-        prevButton.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                scrollToPage(currentPage);
-            }
-        });
+        // Touch Gestures
+        function setupGestures() {
+            if (!isMobile) return;
 
-        // Navigate to the next page
-        nextButton.addEventListener('click', () => {
-            if (currentPage < totalPages) {
-                currentPage++;
-                scrollToPage(currentPage);
-            }
-        });
+            let touchStartX = 0;
+            pdfViewer.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+            });
 
-        // Scroll to a specific page
-        function scrollToPage(pageNumber) {
-            const targetPage = pdfViewer.querySelector(`[data-page-number="${pageNumber}"]`);
-            if (targetPage) {
-                targetPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            pdfViewer.addEventListener('touchend', e => {
+                const touchEndX = e.changedTouches[0].clientX;
+                const deltaX = touchStartX - touchEndX;
+                if (Math.abs(deltaX) > 50) {
+                    navigate(deltaX > 0 ? 1 : -1);
+                }
+            });
+        }
+
+        // Navigation Logic
+        function navigate(direction) {
+            const newPage = Math.max(1, Math.min(totalPages, currentPage + direction));
+            if (newPage !== currentPage) {
+                currentPage = newPage;
+                const pageElement = pdfViewer.children[currentPage - 1];
+                pageElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
 
-        // Function to go back (example: to the previous page or section)
-        function goBack() {
-            window.history.back();
+        // Viewport Resize Handler
+        async function handleResize() {
+            pdfViewer.innerHTML = '';
+            await renderPages();
+            navigate(0);
         }
 
-        // Load the PDF
-        loadPDF(url);
+        // Keyboard Navigation
+        function handleKeyPress(e) {
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+            if (e.key === 'Escape') fullscreenOverlay.style.display = 'none';
+        }
+
+        // Utility Functions
+        function debounce(func, timeout = 300) {
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => func.apply(this, args), timeout);
+            };
+        }
+
+        // Initialize Viewer
+        initializeViewer();
     </script>
 </body>
 </html>
